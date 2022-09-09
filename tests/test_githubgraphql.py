@@ -2,6 +2,7 @@
 
 import unittest
 from uuid import uuid4
+import functools
 from tempfile import NamedTemporaryFile
 from os import getenv
 from contextlib import contextmanager
@@ -9,15 +10,26 @@ from githubgraphql import GithubGraphQL, Result
 import requests
 
 
+def skip_if_no_token(func):
+    """
+    This is a decorator function you can use to skip a test if no GITHUB_TOKEN
+    token is specifyied in the environment.
+    """
+    @functools.wraps(func)
+    def wrapper(test_case):
+        if test_case.api_token is None:
+            test_case.skipTest(
+                "Skipping test because no GITHUB_TOKEN environment variable is set.")
+        func(test_case)
+    return wrapper
+
+
 class TestGithubGraphQL(unittest.TestCase):
     """ Testcases for the GithubGraphQL class. """
 
     def __init__(self, methodName: str = ...) -> None:
-        self.__token = getenv(
-            key="GITHUB_TOKEN",
-            default="<GITHUB_API_TOKEN>")
-        self.__viewer_login = getenv(
-            key="GITHUB_LOGIN", default="github-actions[bot]")
+        self.__token = getenv(key="GITHUB_TOKEN", default=None)
+        self.__viewer_login = getenv(key="GITHUB_LOGIN", default=None)
         super().__init__(methodName)
 
     @property
@@ -60,6 +72,7 @@ class TestGithubGraphQL(unittest.TestCase):
             with self.assertRaises(IsADirectoryError):
                 ghapi.query_from_file("/")
 
+    @skip_if_no_token
     def test_wrong_query(self):
         """ Test what happens when we try use an invalid query string """
         with GithubGraphQL(token=self.api_token) as ghapi:
@@ -69,6 +82,7 @@ class TestGithubGraphQL(unittest.TestCase):
                                         'message': 'Parse error on "foo" (IDENTIFIER) at [1, 1]'}]}
                 self.assertEqual(ghapi.query_from_file(filename), expected)
 
+    @skip_if_no_token
     def test_empty_query(self):
         """ Test what happens when we try use an empty query string """
         with GithubGraphQL(token=self.api_token) as ghapi:
@@ -80,12 +94,13 @@ class TestGithubGraphQL(unittest.TestCase):
 
     def test_wrong_endpoint_returns_non_json(self):
         """ Test what happens when we try use an invalid endpoint """
-        with GithubGraphQL(token=self.api_token, endpoint="https://www.example.com") as ghapi:
+        with GithubGraphQL(endpoint="https://www.example.com") as ghapi:
             query = " query { viewer { login } }"
             with self.get_query_as_file(query) as filename:
                 with self.assertRaises(requests.JSONDecodeError):
                     ghapi.query_from_file(filename)
 
+    @skip_if_no_token
     def test_ok_get_viewers_login(self):
         """ Test that we can get the login of the viewer """
         with GithubGraphQL(token=self.api_token) as ghapi:
@@ -97,6 +112,7 @@ class TestGithubGraphQL(unittest.TestCase):
                 print(type(actual))
                 self.assertIsInstance(actual, Result)
 
+    @skip_if_no_token
     def test_undefined_field_madeupfield(self):
         """ Test that we get an error when we try to query an undefined field """
         with GithubGraphQL(token=self.api_token) as ghapi:
