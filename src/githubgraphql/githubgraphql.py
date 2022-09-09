@@ -10,6 +10,7 @@ from typing import Dict, Union
 from requests import Session
 from .result import Result
 
+
 class GithubGraphQL:
     """ A lightweight Github GraphQL API client.
 
@@ -88,7 +89,7 @@ class GithubGraphQL:
         there's an error; otherwise the result data is returned.
 
         NOTE: We explicitly made this method private because we want to make it
-              a habit to use files instead of query strings. Those query files 
+              a habit to use files instead of query strings. Those query files
               can be tested and validated more easily.
         """
         req = self.__session.post(

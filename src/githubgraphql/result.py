@@ -8,6 +8,7 @@ A thin layer around the "dict" result of a Github GraphQL operation.
 from typing import Dict, Any
 import json
 
+
 class Result(dict):
     """
     This is a dict that has a few helper functions to make it easier to
@@ -58,4 +59,3 @@ class Result(dict):
         if "errors" in self:
             return self["errors"]
         return None
-

@@ -1,8 +1,9 @@
-""" Unittests for githubgraphql.Result """ 
+""" Unittests for githubgraphql.Result """
 
 from typing import Dict, Any
 import unittest
 from githubgraphql import Result
+
 
 class TestResult(unittest.TestCase):
     """ Testcases for the Result class. """
@@ -44,17 +45,21 @@ class TestResult(unittest.TestCase):
     def test_errors(self):
         """ Test the errors property. """
         result = Result({'errors': [{'extensions': {'code': 'undefinedField',
-                                                       'fieldName': 'MADEUPFIELD',
-                                                       'typeName': 'User'},
-                                        'locations': [{'column': 19, 'line': 1}],
-                                        'message': "Field 'MADEUPFIELD' doesn't exist on type 'User'",
-                                        'path': ['query', 'viewer', 'MADEUPFIELD']}]})
-        self.assertEqual(result.errors, [{'extensions': {'code': 'undefinedField',
-                                                       'fieldName': 'MADEUPFIELD',
-                                                       'typeName': 'User'},
-                                        'locations': [{'column': 19, 'line': 1}],
-                                        'message': "Field 'MADEUPFIELD' doesn't exist on type 'User'",
-                                        'path': ['query', 'viewer', 'MADEUPFIELD']}])
+                                                    'fieldName': 'MADEUPFIELD',
+                                                    'typeName': 'User'},
+                                     'locations': [{'column': 19, 'line': 1}],
+                                     'message': "Field 'MADEUPFIELD' doesn't exist on type 'User'",
+                                     'path': ['query', 'viewer', 'MADEUPFIELD']}]})
+        self.assertEqual(result.errors,
+                         [{'extensions': {'code': 'undefinedField',
+                                          'fieldName': 'MADEUPFIELD',
+                                          'typeName': 'User'},
+                           'locations': [{'column': 19,
+                                          'line': 1}],
+                             'message': "Field 'MADEUPFIELD' doesn't exist on type 'User'",
+                             'path': ['query',
+                                      'viewer',
+                                      'MADEUPFIELD']}])
 
     def test_data_none(self):
         """ Test the data property when there is no data. """
@@ -65,6 +70,7 @@ class TestResult(unittest.TestCase):
         """ Test the errors property when there are no errors. """
         result = Result({})
         self.assertEqual(result.errors, None)
+
 
 if __name__ == '__main__':
     unittest.main()

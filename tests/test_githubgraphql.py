@@ -112,5 +112,6 @@ class TestGithubGraphQL(unittest.TestCase):
                 self.assertEqual(actual, expected)
                 self.assertIsInstance(actual, Result)
 
+
 if __name__ == '__main__':
     unittest.main()
