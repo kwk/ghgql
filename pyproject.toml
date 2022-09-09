@@ -18,6 +18,7 @@ myst-nb = "^0.16.0"
 sphinx-autoapi = "^1.9.0"
 sphinx-rtd-theme = "^1.0.0"
 python-semantic-release = "^7.31.4"
+pytest-pep8 = "^1.0.6"
 
 [tool.semantic_release]
 version_variable = [

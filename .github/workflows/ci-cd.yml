@@ -27,7 +27,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_LOGIN: "github-actions[bot]"
-        run: poetry run pytest tests/ --cov=githubgraphql --cov-report=xml
+        run: poetry run pytest tests/ --pep8 --cov=githubgraphql --cov-report=xml
 
       - name: Use Codecov to track coverage
         uses: codecov/codecov-action@v2
