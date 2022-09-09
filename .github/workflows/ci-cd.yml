@@ -29,8 +29,8 @@ jobs:
           GITHUB_LOGIN: "github-actions[bot]"
         run: poetry run pytest tests/ --cov=githubgraphql --cov-report=xml
 
-      - name: Check python code style
-        run: pycodestyle --show-source --show-pep8 src/githubgraphql/
+      # - name: Check python code style
+      #   run: pycodestyle --show-source --show-pep8 src/githubgraphql/
 
       - name: Use Codecov to track coverage
         uses: codecov/codecov-action@v2
