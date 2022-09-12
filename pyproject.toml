@@ -6,6 +6,7 @@ authors = ["Konrad Kleine"]
 maintainers = ["Konrad Kleine"]
 license = "MIT"
 readme = "README.md"
+homepage = "https://pypi.org/project/ghgql/"
 repository = "https://github.com/kwk/ghgql/"
 documentation = "https://ghgql.readthedocs.io/en/latest/?badge=latest
 keywords = [
@@ -48,9 +49,6 @@ patch_without_tag = true                    # patch release by default
 requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
 
-[project.urls]
+[tool.project.urls]
 "Homepage" = "https://github.com/kwk/ghgql"
 "Bug Tracker" = "https://github.com/kwk/ghgql/issues"
-
-[tool.poetry.urls]
-issues = "https://github.com/kwk/ghgql/issues"
