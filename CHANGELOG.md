@@ -2,6 +2,10 @@
 
 <!--next-version-placeholder-->
 
+## v0.0.9 (2022-09-12)
+### Fix
+* Pyproject.toml ([`5c0f950`](https://github.com/kwk/ghgql/commit/5c0f95093b9cc89ade63a354ceaf83ffaa4049d9))
+
 ## v0.0.8 (2022-09-12)
 
 
