@@ -24,6 +24,11 @@ $ pip install ghgql
 
 Interested in contributing? Check out the contributing guidelines. Please note that this project is released with a Code of Conduct. By contributing to this project, you agree to abide by its terms.
 
+### Commit message conventions and semantic versioniong (semver)
+
+We use semantic versioning and [these commit message conventions](https://www.conventionalcommits.org/en/v1.0.0/)
+can be used to automatically bump the version number and generate the changelog.
+
 ## License
 
 `ghgql` was created by Konrad Kleine. It is licensed under the terms of the MIT license.
