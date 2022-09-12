@@ -31,6 +31,7 @@ sphinx-rtd-theme = "^1.0.0"
 python-semantic-release = "^7.31.4"
 pytest-pycodestyle = "^2.3.0"
 pylint = "^2.15.2"
+jupyter = "^1.0.0"
 
 [tool.semantic_release]
 version_variable = [

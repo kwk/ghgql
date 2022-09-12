@@ -19,7 +19,7 @@ def skip_if_no_token(func):
     def wrapper(test_case):
         if test_case.api_token is None:
             test_case.skipTest(
-                "Skipping test because no GITHUB_TOKEN environment variable is set.")
+                f"Skipping test {test_case._testMethodName} because no GITHUB_TOKEN environment variable is set.")
         func(test_case)
     return wrapper
 
