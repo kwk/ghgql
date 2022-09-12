@@ -2,6 +2,9 @@
 
 <!--next-version-placeholder-->
 
+## v0.0.7 (2022-09-12)
+
+
 ## v0.0.6 (2022-09-12)
 ### Fix
 * Improved error handling for ghgql.Result.get() ([`42861f8`](https://github.com/kwk/ghgql/commit/42861f8c404e1287a2745ff61ade5bf7832d3192))
