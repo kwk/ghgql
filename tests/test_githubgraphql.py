@@ -27,10 +27,9 @@ def skip_if_no_token(func):
 class TestGithubGraphQL(unittest.TestCase):
     """ Testcases for the GithubGraphQL class. """
 
-    def __init__(self, methodName: str = ...) -> None:
+    def setUp(self) -> None:
         self.__token = getenv(key="GITHUB_TOKEN", default=None)
         self.__viewer_login = getenv(key="GITHUB_LOGIN", default=None)
-        super().__init__(methodName)
 
     @property
     def api_token(self) -> str:
