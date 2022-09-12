@@ -60,8 +60,7 @@ class Result(dict):
 
         current_value = self.data
         for k in keys:
-            k = k.strip()
-            if k == "":
+            if (k := k.strip()) == '':
                 raise KeyError(f"invalid key \"{key}\" because of empty element")
             if isinstance(current_value, str) and current_value != "null":
                 current_value = json.loads(current_value)
