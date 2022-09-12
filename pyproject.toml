@@ -8,14 +8,14 @@ license = "MIT"
 readme = "README.md"
 homepage = "https://pypi.org/project/ghgql/"
 repository = "https://github.com/kwk/ghgql/"
-documentation = "https://ghgql.readthedocs.io/en/latest/?badge=latest
+documentation = "https://ghgql.readthedocs.io/en/latest/?badge=latest"
 keywords = [
     "Python",
     "Github",
     "GraphQL",
     "API",
     "Wrapper"
-]"
+]
 
 [tool.poetry.dependencies]
 python = ">=3.8,<4"
