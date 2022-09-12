@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "githubgraphql"
+name = "ghgql"
 version = "0.0.4"
 description = "Thin wrapper for interacting with the Github GraphQL API"
 authors = ["Konrad Kleine"]
@@ -22,7 +22,7 @@ pytest-pycodestyle = "^2.3.0"
 
 [tool.semantic_release]
 version_variable = [
-    #"src/githubgraphql/__init__.py:__version__",
+    #"src/ghgql/__init__.py:__version__",
     "pyproject.toml:version"
 ]
 branch = "main"                             # branch to make releases of
@@ -39,5 +39,5 @@ requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
 
 [project.urls]
-"Homepage" = "https://github.com/kwk/githubgraphql"
-"Bug Tracker" = "https://github.com/kwk/githubgraphql/issues"
+"Homepage" = "https://github.com/kwk/ghgql"
+"Bug Tracker" = "https://github.com/kwk/ghgql/issues"

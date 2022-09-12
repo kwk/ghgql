@@ -1,5 +1,5 @@
 """
-githubgraphql.githubgraphql
+ghgql.ghgql
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 This provides a simply class that can be used to query the Github GraphQL API.

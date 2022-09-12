@@ -1,6 +1,6 @@
 # read version from installed package
 from importlib.metadata import version
-__version__ = version("githubgraphql")
+__version__ = version("ghgql")
 
 from .result import Result
-from .githubgraphql import GithubGraphQL
+from .ghgql import GithubGraphQL

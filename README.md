@@ -1,11 +1,11 @@
-# githubgraphql
+# ghgql
 
 Thin wrapper for interacting with the Github GraphQL API
 
 ## Installation
 
 ```bash
-$ pip install githubgraphql
+$ pip install ghgql
 ```
 
 ## Usage
@@ -18,8 +18,8 @@ Interested in contributing? Check out the contributing guidelines. Please note t
 
 ## License
 
-`githubgraphql` was created by Konrad Kleine. It is licensed under the terms of the MIT license.
+`ghgql` was created by Konrad Kleine. It is licensed under the terms of the MIT license.
 
 ## Credits
 
-`githubgraphql` was created with [`cookiecutter`](https://cookiecutter.readthedocs.io/en/latest/) and the `py-pkgs-cookiecutter` [template](https://github.com/py-pkgs/py-pkgs-cookiecutter).
+`ghgql` was created with [`cookiecutter`](https://cookiecutter.readthedocs.io/en/latest/) and the `py-pkgs-cookiecutter` [template](https://github.com/py-pkgs/py-pkgs-cookiecutter).

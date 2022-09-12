@@ -40,10 +40,10 @@ If you are proposing a feature:
 
 ## Get Started!
 
-Ready to contribute? Here's how to set up `githubgraphql` for local development.
+Ready to contribute? Here's how to set up `ghgql` for local development.
 
-1. Download a copy of `githubgraphql` locally.
-2. Install `githubgraphql` using `poetry`:
+1. Download a copy of `ghgql` locally.
+2. Install `ghgql` using `poetry`:
 
     ```console
     $ poetry install
@@ -69,5 +69,5 @@ Before you submit a pull request, check that it meets these guidelines:
 
 ## Code of Conduct
 
-Please note that the `githubgraphql` project is released with a
+Please note that the `ghgql` project is released with a
 Code of Conduct. By contributing to this project you agree to abide by its terms.

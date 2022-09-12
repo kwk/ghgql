@@ -1,4 +1,4 @@
-""" Tests for githubgraphql.githubgraphql """
+""" Tests for ghgql.ghgql """
 
 import unittest
 from uuid import uuid4
@@ -6,7 +6,7 @@ import functools
 from tempfile import NamedTemporaryFile
 from os import getenv
 from contextlib import contextmanager
-import githubgraphql
+import ghgql
 import requests
 
 
@@ -61,21 +61,21 @@ class TestGithubGraphQL(unittest.TestCase):
 
     def test_query_file_not_found(self):
         """ Test what happens when we try to query with a file that doesn't exist. """
-        with githubgraphql.GithubGraphQL() as ghapi:
+        with ghgql.GithubGraphQL() as ghapi:
             filename = str(uuid4())
             with self.assertRaises(FileNotFoundError):
                 ghapi.query_from_file(filename)
 
     def test_query_file_is_directory(self):
         """ Test what happens when the query file is a directory. """
-        with githubgraphql.GithubGraphQL() as ghapi:
+        with ghgql.GithubGraphQL() as ghapi:
             with self.assertRaises(IsADirectoryError):
                 ghapi.query_from_file("/")
 
     @skip_if_no_token
     def test_wrong_query(self):
         """ Test what happens when we try use an invalid query string """
-        with githubgraphql.GithubGraphQL(token=self.api_token) as ghapi:
+        with ghgql.GithubGraphQL(token=self.api_token) as ghapi:
             query = "foo"
             with self.get_query_as_file(query) as filename:
                 expected = {'errors': [{'locations': [{'column': 1, 'line': 1}],
@@ -85,7 +85,7 @@ class TestGithubGraphQL(unittest.TestCase):
     @skip_if_no_token
     def test_empty_query(self):
         """ Test what happens when we try use an empty query string """
-        with githubgraphql.GithubGraphQL(token=self.api_token) as ghapi:
+        with ghgql.GithubGraphQL(token=self.api_token) as ghapi:
             query = ""
             with self.get_query_as_file(query) as filename:
                 expected = {'errors': [
@@ -94,7 +94,7 @@ class TestGithubGraphQL(unittest.TestCase):
 
     def test_wrong_endpoint_returns_non_json(self):
         """ Test what happens when we try use an invalid endpoint """
-        with githubgraphql.GithubGraphQL(endpoint="https://www.example.com") as ghapi:
+        with ghgql.GithubGraphQL(endpoint="https://www.example.com") as ghapi:
             query = " query { viewer { login } }"
             with self.get_query_as_file(query) as filename:
                 with self.assertRaises(requests.JSONDecodeError):
@@ -103,19 +103,19 @@ class TestGithubGraphQL(unittest.TestCase):
     @skip_if_no_token
     def test_ok_get_viewers_login(self):
         """ Test that we can get the login of the viewer """
-        with githubgraphql.GithubGraphQL(token=self.api_token) as ghapi:
+        with ghgql.GithubGraphQL(token=self.api_token) as ghapi:
             query = " query { viewer { login } }"
             with self.get_query_as_file(query) as filename:
                 expected = {"data": {"viewer": {"login": self.viewer_login}}}
                 actual = ghapi.query_from_file(filename)
                 self.assertEqual(actual, expected)
                 print(type(actual))
-                self.assertIsInstance(actual, githubgraphql.Result)
+                self.assertIsInstance(actual, ghgql.Result)
 
     @skip_if_no_token
     def test_undefined_field_madeupfield(self):
         """ Test that we get an error when we try to query an undefined field """
-        with githubgraphql.GithubGraphQL(token=self.api_token) as ghapi:
+        with ghgql.GithubGraphQL(token=self.api_token) as ghapi:
             query = " query { viewer { MADEUPFIELD } }"
             with self.get_query_as_file(query) as filename:
                 expected = {'errors': [{'extensions': {'code': 'undefinedField',
@@ -126,7 +126,7 @@ class TestGithubGraphQL(unittest.TestCase):
                                         'path': ['query', 'viewer', 'MADEUPFIELD']}]}
                 actual = ghapi.query_from_file(filename)
                 self.assertEqual(actual, expected)
-                self.assertIsInstance(actual, githubgraphql.Result)
+                self.assertIsInstance(actual, ghgql.Result)
 
 
 if __name__ == '__main__':

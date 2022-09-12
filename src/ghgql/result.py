@@ -1,5 +1,5 @@
 """
-githubgraphql.result
+ghgql.result
 ~~~~~~~~~~~~~~~~~~~~
 
 A thin layer around the "dict" result of a Github GraphQL operation.

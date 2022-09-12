@@ -9,7 +9,7 @@ if "%SPHINXBUILD%" == "" (
 )
 set SOURCEDIR=.
 set BUILDDIR=_build
-set SPHINXPROJ=githubgraphql
+set SPHINXPROJ=ghgql
 
 if "%1" == "" goto help
 

@@ -6,7 +6,7 @@
 
 # -- Project information -----------------------------------------------------
 
-project = u"githubgraphql"
+project = u"ghgql"
 copyright = u"2022, Konrad Kleine"
 author = u"Konrad Kleine"
 

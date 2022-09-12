@@ -1,8 +1,8 @@
-""" Unittests for githubgraphql.Result """
+""" Unittests for ghgql.Result """
 
 from typing import Dict, Any
 import unittest
-from githubgraphql import Result
+from ghgql import Result
 
 
 class TestResult(unittest.TestCase):
