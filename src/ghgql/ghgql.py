@@ -29,7 +29,7 @@ class GithubGraphQL:
             self,
             token: str = "",
             endpoint: str = "https://api.github.com/graphql"):
-        """ Creates a session with the given bearer token and endpoint. """
+        """ Creates a session with the given bearer `token` and `endpoint`. """
         self.__endpoint = endpoint
         self.__token = token
         self.__encoding = "utf-8"
@@ -58,6 +58,10 @@ class GithubGraphQL:
         See also:
         https://docs.github.com/en/graphql/guides/forming-calls-with-graphql
         https://docs.github.com/en/graphql/overview/explorer
+
+        Args:
+            filename (str): The filename of the query file.
+            variables (dict): The variables to be applied to the query.
         """
         with open(file=filename, mode="r", encoding=self.encoding) as file_handle:
             query = file_handle.read()
@@ -91,6 +95,13 @@ class GithubGraphQL:
         NOTE: We explicitly made this method private because we want to make it
               a habit to use files instead of query strings. Those query files
               can be tested and validated more easily.
+
+        Args:
+            query (str): The GraphQL query.
+            variables (dict): The variables to be applied to the query.
+
+        Returns:
+            Result: The result of the query. Inspect the result for errors!
         """
         req = self.__session.post(
             url=self.__endpoint,

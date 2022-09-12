@@ -7,7 +7,6 @@ A thin layer around the "dict" result of a Github GraphQL operation.
 
 from typing import Dict, Any
 import json
-import string
 
 
 class Result(dict):
@@ -31,20 +30,20 @@ class Result(dict):
         plus that it handles if a key doesn't exist and a default value should
         be used
 
-        NOTE: A RuntimeError is raised under these conditions:
-              1. Errors are present
-              2. Data is empty and default is given
-        
-        NOTE: A KeyError is raised under these conditions:
-              1. Key is invalid (e.g. "foo..bar") and no default is given
-              2. Key cannot be resolved and no default is given
-        
-        :param str key: dot-separated key to access
-        :param Any default: default value to return if key is not found
+        Args:
+            key (str): dot-separated key to access
+            **kwargs: key-value pairs (e.g. {default=42})
+
+        Raises:
+            RuntimeError: If `errors` are present or if data is empty and no
+                          `default` is given.
+            KeyError: If `key` is invalid (e.g. `"foo..bar"`) and no `default`
+                      is given. Or if key cannot be resolved and no `default`
+                      is given.
         """
         if self.errors is not None:
             raise RuntimeError("errors are present")
-        
+
         default = None
         default_is_given = False
         if 'default' in kwargs:

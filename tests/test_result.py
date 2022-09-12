@@ -1,6 +1,5 @@
 """ Unittests for ghgql.Result """
 
-from typing import Dict, Any
 import unittest
 from ghgql import Result
 

@@ -30,14 +30,14 @@ jobs:
       - name: Install package
         run: poetry install
 
+      - name: Check python code style
+        run: poetry run pylint $(git ls-files *.py)
+
       - name: Test with pytest
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_LOGIN: "github-actions[bot]"
         run: poetry run pytest tests/ --cov=ghgql --cov-report=xml
-
-      # - name: Check python code style
-      #   run: pycodestyle --show-source --show-pep8 src/ghgql/
 
       - name: Use Codecov to track coverage
         uses: codecov/codecov-action@v2

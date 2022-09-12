@@ -6,8 +6,8 @@ import functools
 from tempfile import NamedTemporaryFile
 from os import getenv
 from contextlib import contextmanager
-import ghgql
 import requests
+import ghgql
 
 
 def skip_if_no_token(func):
