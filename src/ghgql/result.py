@@ -7,6 +7,7 @@ A thin layer around the "dict" result of a Github GraphQL operation.
 
 from typing import Dict, Any
 import json
+import string
 
 
 class Result(dict):
@@ -15,7 +16,7 @@ class Result(dict):
     work with the data returned from the Github GraphQL API.
     """
 
-    def get(self, key: str, default: Any = None) -> Any:
+    def get(self, key: str, **kwargs) -> Any:
         """
         Helper function to get data from a deeply nested dict.
 
@@ -30,21 +31,45 @@ class Result(dict):
         plus that it handles if a key doesn't exist and a default value should
         be used
 
-        NOTE: When there are errors present and you still try to get data this
-              will raise a RuntimeError. 
+        NOTE: A RuntimeError is raised under these conditions:
+              1. Errors are present
+              2. Data is empty and default is given
+        
+        NOTE: A KeyError is raised under these conditions:
+              1. Key is invalid (e.g. "foo..bar") and no default is given
+              2. Key cannot be resolved and no default is given
+        
+        :param str key: dot-separated key to access
+        :param Any default: default value to return if key is not found
         """
         if self.errors is not None:
-            raise RuntimeError("Cannot get data when errors are present.")
+            raise RuntimeError("errors are present")
+        
+        default = None
+        default_is_given = False
+        if 'default' in kwargs:
+            default = kwargs['default']
+            default_is_given = True
+
+        if self.data is None:
+            if default_is_given:
+                return default
+            raise RuntimeError("data is None and no default is given")
 
         keys = key.split(".")
 
         current_value = self.data
         for k in keys:
+            k = k.strip()
+            if k == "":
+                raise KeyError(f"invalid key \"{key}\" because of empty element")
             if isinstance(current_value, str) and current_value != "null":
                 current_value = json.loads(current_value)
-            if k in current_value:
+            if current_value is not None and k in current_value:
                 current_value = current_value[k]
             else:
+                if not default_is_given:
+                    raise KeyError(f"key \"{key}\" is not found and default is not present")
                 return default
         return current_value
 
