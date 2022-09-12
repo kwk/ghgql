@@ -6,7 +6,7 @@ jobs:
   ci:
     # Set up operating system
     runs-on: ubuntu-latest
-    strategy: &python_strategy
+    strategy:
       fail-fast: false
       matrix:
         python-version: ["3.8", "3.9", "3.10"]
