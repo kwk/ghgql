@@ -2,6 +2,10 @@
 
 <!--next-version-placeholder-->
 
+## v0.0.5 (2022-09-12)
+### Documentation
+* Readme update ([`2dc62e8`](https://github.com/kwk/ghgql/commit/2dc62e8782943a5bc070af697b3d9f7496822baa))
+
 ## v0.0.4 (2022-09-09)
 
 
