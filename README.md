@@ -7,6 +7,7 @@ Thin wrapper for interacting with the [Github GraphQL API](https://docs.github.c
 [![CodeQL](https://github.com/kwk/ghgql/actions/workflows/codeql.yml/badge.svg)](https://github.com/kwk/ghgql/actions/workflows/codeql.yml)
 [![ci-cd](https://github.com/kwk/ghgql/actions/workflows/ci-cd.yml/badge.svg)](https://github.com/kwk/ghgql/actions/workflows/ci-cd.yml)
 [![codecov](https://codecov.io/gh/kwk/ghgql/branch/main/graph/badge.svg?token=ASSPTOL3JU)](https://codecov.io/gh/kwk/ghgql)
+[![release](https://img.shields.io/github/release/kwk/ghgql.svg)](https://github.com/kwk/ghgql/releases)
 
 ## Installation
 
