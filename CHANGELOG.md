@@ -2,6 +2,11 @@
 
 <!--next-version-placeholder-->
 
+## v0.0.6 (2022-09-12)
+### Fix
+* Improved error handling for ghgql.Result.get() ([`42861f8`](https://github.com/kwk/ghgql/commit/42861f8c404e1287a2745ff61ade5bf7832d3192))
+* Raise RuntimeException when trying to access a result field in case of errors ([`38d5f15`](https://github.com/kwk/ghgql/commit/38d5f1552ba4427909269d840da86b4a2a561dc4))
+
 ## v0.0.5 (2022-09-12)
 ### Documentation
 * Readme update ([`2dc62e8`](https://github.com/kwk/ghgql/commit/2dc62e8782943a5bc070af697b3d9f7496822baa))

@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "ghgql"
-version = "0.0.5"
+version = "0.0.6"
 description = "Thin wrapper for interacting with the Github GraphQL API"
 authors = ["Konrad Kleine"]
 license = "MIT"
