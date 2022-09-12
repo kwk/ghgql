@@ -28,8 +28,14 @@ class Result(dict):
             result["status"]["item"]["id"]
 
         plus that it handles if a key doesn't exist and a default value should
-        be used.
+        be used
+
+        NOTE: When there are errors present and you still try to get data this
+              will raise a RuntimeError. 
         """
+        if self.errors is not None:
+            raise RuntimeError("Cannot get data when errors are present.")
+
         keys = key.split(".")
 
         current_value = self.data

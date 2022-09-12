@@ -23,6 +23,22 @@ class TestResult(unittest.TestCase):
         self.assertEqual(result.get(key="status.item.id", default=42), "123")
         self.assertEqual(result.get(key="status.item.id2", default=42), 42)
 
+    def test_get_when_error(self):
+        """
+        Test that get method raises RuntimeException when error is present.
+        """
+        result = Result({'errors': [{'message': "this is an artifical error"}]})
+        self.assertIsNotNone(result.errors)
+        self.assertIsNone(result.data)
+
+        with self.assertRaises(RuntimeError) as ex:
+            result.get(key="no.data.present.but.error")
+        self.assertEqual(ex.exception, "Cannot get data when errors are present.")
+
+        with self.assertRaises(RuntimeError) as ex:
+            result.get(key="default.does.not.help", default=42)
+        self.assertEqual(ex.exception, "Cannot get data when errors are present.")
+
     def test_data(self):
         """ Test the data property. """
         result = Result({
