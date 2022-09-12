@@ -1,6 +1,12 @@
 # ghgql
 
-Thin wrapper for interacting with the Github GraphQL API
+Thin wrapper for interacting with the [Github GraphQL API](https://docs.github.com/en/graphql).
+
+## Status
+
+[![CodeQL](https://github.com/kwk/ghgql/actions/workflows/codeql.yml/badge.svg)](https://github.com/kwk/ghgql/actions/workflows/codeql.yml)
+
+[![ci-cd](https://github.com/kwk/ghgql/actions/workflows/ci-cd.yml/badge.svg)](https://github.com/kwk/ghgql/actions/workflows/ci-cd.yml)
 
 ## Installation
 
