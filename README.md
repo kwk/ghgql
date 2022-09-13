@@ -18,7 +18,42 @@ $ pip install ghgql
 
 ## Usage
 
-- TODO
+For a more in-depth example, take a look at [the example in the documentation](https://ghgql.readthedocs.io/en/latest/example.html). Here's a basic example.
+
+```python
+import os
+import ghgql
+
+query = """
+query ($searchQuery: String!) {
+  search(query: $searchQuery, type: ISSUE, first: 1) {
+    edges {
+      node {
+        ... on Issue {
+          id
+          number
+          title
+          url
+        }
+      }
+    }
+  }
+}
+"""
+
+with ghgql.GithubGraphQL(token=os.getenv("GITHUB_TOKEN")) as ghapi:
+    result = ghapi.query(query=query, variables={"searchQuery": "llvm/llvm-project"})
+    print(result.get("search.edges"))
+```
+
+Should output something like this:
+
+```yaml
+[{'node': {'id': 'I_kwDOHicqdc5RG-tC',
+   'number': 16,
+   'title': 'llvm/llvm-project',
+   'url': 'https://github.com/KhushP786/open-sauced-goals/issues/16'}}]
+```
 
 ## Contributing
 
