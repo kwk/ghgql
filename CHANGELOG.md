@@ -2,6 +2,14 @@
 
 <!--next-version-placeholder-->
 
+## v0.0.11 (2022-09-13)
+### Documentation
+* Add link to documentation ([`d4c4f39`](https://github.com/kwk/ghgql/commit/d4c4f392af1dbb8789ff09025f7974fdfacb9d10))
+* Fill Usage section in README ([`117d3c6`](https://github.com/kwk/ghgql/commit/117d3c6572bcb6c2fc5f8ea0d0b9d7bbb17748db))
+* Example usage update and make query public ([`1cffbd2`](https://github.com/kwk/ghgql/commit/1cffbd29df5592fbd54150cfe5781051920f7209))
+* Fixup jupyter notebook ([`92e1530`](https://github.com/kwk/ghgql/commit/92e1530169423510ee69253a3d6c4fe6e65f4715))
+* Added example search query ([`b90a77f`](https://github.com/kwk/ghgql/commit/b90a77fc891b4a79d8d18b0479039852e2bc08c0))
+
 ## v0.0.10 (2022-09-12)
 
 
