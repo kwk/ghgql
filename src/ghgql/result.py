@@ -44,11 +44,8 @@ class Result(dict):
         if self.errors is not None:
             raise RuntimeError("errors are present")
 
-        default = None
-        default_is_given = False
-        if 'default' in kwargs:
-            default = kwargs['default']
-            default_is_given = True
+        default = kwargs.get('default', None)
+        default_is_given = 'default' in kwargs
 
         if self.data is None:
             if default_is_given:
