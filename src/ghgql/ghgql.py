@@ -65,7 +65,7 @@ class GithubGraphQL:
         """
         with open(file=filename, mode="r", encoding=self.encoding) as file_handle:
             query = file_handle.read()
-        return self.__query(query, variables)
+        return self.query(query, variables)
 
     def __enter__(self):
         self.__session.headers.update({
@@ -83,18 +83,14 @@ class GithubGraphQL:
         """ Closes the session. """
         self.__session.close()
 
-    def __query(self,
-                query: str,
-                variables: Dict[str,
-                                Union[str,
-                                      int]] = None) -> Result:
+    def query(self,
+              query: str,
+              variables: Dict[str,
+                              Union[str,
+                                    int]] = None) -> Result:
         """
         Execute the query with the variables applied. An exception is raised if
         there's an error; otherwise the result data is returned.
-
-        NOTE: We explicitly made this method private because we want to make it
-              a habit to use files instead of query strings. Those query files
-              can be tested and validated more easily.
 
         Args:
             query (str): The GraphQL query.
