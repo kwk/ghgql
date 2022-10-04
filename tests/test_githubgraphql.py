@@ -127,6 +127,16 @@ class TestGithubGraphQL(unittest.TestCase):
                 self.assertEqual(actual, expected)
                 self.assertIsInstance(actual, ghgql.Result)
 
+    # Test for https://github.com/kwk/ghgql/issues/4
+    def test_session_headers_have_token_set(self):
+        """ Test that the session is properly equiped with a bearer token in the
+        header when the GithubGraphQL object is instantiated without a context
+        manager. """
+        ghapi = ghgql.GithubGraphQL(token="foobar")
+        headers = ghapi.session_headers
+        self.assertTrue("Authorization" in headers, "session headers are missing Authorization")
+        self.assertEqual(headers["Authorization"], "Bearer foobar", "Authorization token in session headers mismatch")
+
 
 if __name__ == '__main__':
     unittest.main()

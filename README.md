@@ -74,4 +74,6 @@ can be used to automatically bump the version number and generate the changelog.
 
 ## Credits
 
+This project was created with the help of [this python packaging documentation](https://py-pkgs.org/01-introduction).
+
 `ghgql` was created with [`cookiecutter`](https://cookiecutter.readthedocs.io/en/latest/) and the `py-pkgs-cookiecutter` [template](https://github.com/py-pkgs/py-pkgs-cookiecutter).
