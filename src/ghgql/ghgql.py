@@ -8,6 +8,7 @@ This provides a simply class that can be used to query the Github GraphQL API.
 
 from typing import Dict, Union
 from requests import Session
+from requests.structures import CaseInsensitiveDict
 from .result import Result
 
 
@@ -34,6 +35,12 @@ class GithubGraphQL:
         self.__token = token
         self.__encoding = "utf-8"
         self.__session = Session()
+        self.__session.headers.update({
+            "Authorization": f"Bearer {self.token}",
+            # See #
+            # https://github.blog/2021-11-16-graphql-global-id-migration-update/
+            'X-Github-Next-Global-ID': '1'
+        })
 
     @property
     def token(self) -> str:
@@ -68,13 +75,12 @@ class GithubGraphQL:
         return self.query(query, variables)
 
     def __enter__(self):
-        self.__session.headers.update({
-            "Authorization": f"Bearer {self.token}",
-            # See #
-            # https://github.blog/2021-11-16-graphql-global-id-migration-update/
-            'X-Github-Next-Global-ID': '1'
-        })
         return self
+
+    @property
+    def session_headers(self) -> CaseInsensitiveDict:
+        """ Returns the HTTP headers used for the session. """
+        return self.__session.headers
 
     def __exit__(self, exc_type, exc_value, traceback):
         self.close()
