@@ -2,6 +2,10 @@
 
 <!--next-version-placeholder-->
 
+## v0.0.12 (2022-10-04)
+### Fix
+* Always set the Authorization token ([`1bfff0e`](https://github.com/kwk/ghgql/commit/1bfff0e794495a75a42e91dde73ed3c37b335b52))
+
 ## v0.0.11 (2022-09-13)
 ### Documentation
 * Add link to documentation ([`d4c4f39`](https://github.com/kwk/ghgql/commit/d4c4f392af1dbb8789ff09025f7974fdfacb9d10))
