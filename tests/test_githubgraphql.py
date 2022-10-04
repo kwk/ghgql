@@ -7,6 +7,7 @@ from tempfile import NamedTemporaryFile
 from os import getenv
 from contextlib import contextmanager
 import requests
+import fnc
 import ghgql
 
 
@@ -108,8 +109,7 @@ class TestGithubGraphQL(unittest.TestCase):
                 expected = {"data": {"viewer": {"login": self.viewer_login}}}
                 actual = ghapi.query_from_file(filename)
                 self.assertEqual(actual, expected)
-                print(type(actual))
-                self.assertIsInstance(actual, ghgql.Result)
+                self.assertIsInstance(actual, dict)
 
     @skip_if_no_token
     def test_undefined_field_madeupfield(self):
@@ -125,7 +125,39 @@ class TestGithubGraphQL(unittest.TestCase):
                                         'path': ['query', 'viewer', 'MADEUPFIELD']}]}
                 actual = ghapi.query_from_file(filename)
                 self.assertEqual(actual, expected)
-                self.assertIsInstance(actual, ghgql.Result)
+                self.assertIsInstance(actual, dict)
+
+    @skip_if_no_token
+    def test_query_with_raise_on_error(self):
+        """ Test that we raise an error when requested """
+        with ghgql.GithubGraphQL(token=self.api_token) as ghapi:
+            query = " query { viewer { MADEUPFIELD } }"
+            with self.get_query_as_file(query=query) as filename:
+                expected = {'errors': [{'extensions': {'code': 'undefinedField',
+                                                       'fieldName': 'MADEUPFIELD',
+                                                       'typeName': 'User'},
+                                        'locations': [{'column': 19, 'line': 1}],
+                                        'message': "Field 'MADEUPFIELD' doesn't exist on type 'User'",
+                                        'path': ['query', 'viewer', 'MADEUPFIELD']}]}
+                with self.assertRaises(RuntimeError) as ex:
+                    ghapi.query_from_file(filename=filename, raise_on_error=True)
+                self.assertAlmostEqual(str(ex.exception), fnc.get("errors[0].message", expected))
+
+    @skip_if_no_token
+    def test_query_with_raise_on_error_in_ctor(self):
+        """ Test that we raise an error when requested """
+        with ghgql.GithubGraphQL(token=self.api_token, raise_on_error=True) as ghapi:
+            query = " query { viewer { MADEUPFIELD } }"
+            with self.get_query_as_file(query=query) as filename:
+                expected = {'errors': [{'extensions': {'code': 'undefinedField',
+                                                       'fieldName': 'MADEUPFIELD',
+                                                       'typeName': 'User'},
+                                        'locations': [{'column': 19, 'line': 1}],
+                                        'message': "Field 'MADEUPFIELD' doesn't exist on type 'User'",
+                                        'path': ['query', 'viewer', 'MADEUPFIELD']}]}
+                with self.assertRaises(RuntimeError) as ex:
+                    ghapi.query_from_file(filename=filename)
+                self.assertAlmostEqual(str(ex.exception), fnc.get("errors[0].message", expected))
 
     # Test for https://github.com/kwk/ghgql/issues/4
     def test_session_headers_have_token_set(self):
@@ -137,6 +169,68 @@ class TestGithubGraphQL(unittest.TestCase):
         self.assertTrue("Authorization" in headers, "session headers are missing Authorization")
         self.assertEqual(headers["Authorization"], "Bearer foobar", "Authorization token in session headers mismatch")
 
+    @skip_if_no_token
+    def test_real_example(self):
+        """ Test a real world example query and analysis """
+        query = """
+        query($org: String!, $number: Int!) {
+            organization(login: $org) {
+                projectV2(number: $number) {
+                items(last: 100) {
+                    nodes {
+                    id
+
+                    fieldValues(first: 8) {
+                        nodes {
+                        ... on ProjectV2ItemFieldSingleSelectValue {
+                            name
+                            field {
+                            ... on ProjectV2FieldCommon {
+                                name
+                            }
+                            }
+                        }
+                        ... on ProjectV2ItemFieldTextValue {
+                            text
+                            field {
+                            ... on ProjectV2FieldCommon {
+                                name
+                            }
+                            }
+                        }
+                        ... on ProjectV2ItemFieldPullRequestValue {
+                            pullRequests(last: 10) {
+                            nodes {
+                                url
+                                number
+                            }
+                            }
+                        }
+                        }
+                    }
+
+                    content {
+                        ...on Issue {
+                        title
+                        number
+                        url
+                        state
+                        milestone {
+                            number
+                        }
+                        }
+                    }
+                    }
+                }
+                }
+            }
+        }
+        """
+        with ghgql.GithubGraphQL(token=self.api_token) as ghapi:
+            result = ghapi.query(query=query, variables={"org": "kwk-org", "number": 1})
+            nodes = fnc.get("data.organization.projectV2.items.nodes", result)
+            milestone_numbers = fnc.map("content.milestone.number", nodes)
+            self.assertEqual(list(milestone_numbers), [1,2,3])
 
 if __name__ == '__main__':
     unittest.main()

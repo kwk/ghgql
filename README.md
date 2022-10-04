@@ -26,6 +26,7 @@ For a more in-depth example, take a look at [the example in the documentation](h
 
 ```python
 import os
+import fnc
 import ghgql
 
 query = """
@@ -47,7 +48,7 @@ query ($searchQuery: String!) {
 
 with ghgql.GithubGraphQL(token=os.getenv("GITHUB_TOKEN")) as ghapi:
     result = ghapi.query(query=query, variables={"searchQuery": "llvm/llvm-project"})
-    print(result.get("search.edges"))
+    print(fnc.get("search.edges", result))
 ```
 
 Should output something like this:
