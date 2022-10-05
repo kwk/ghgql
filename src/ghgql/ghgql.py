@@ -37,7 +37,7 @@ class GithubGraphQL:
         Args:
             token (str): Your personal access token in Github (see https://github.com/settings/tokens)
             endpoint (str): The endpoint to query GraphQL from
-             **kwargs: key-value pairs (e.g. {raise_on_error=True})
+            **kwargs: key-value pairs (e.g. {raise_on_error=True})
         """
         self.__endpoint = endpoint
         self.__token = token
@@ -66,12 +66,12 @@ class GithubGraphQL:
                         variables: Dict[str,
                                         Union[str,
                                               int]] = None,
-                        raise_on_error: bool=False) -> Any:
+                        **kwargs) -> Any:
         """
         Read the query from the given file and execute it with the variables
         applied. If not requested otherwise the plain result is returned. If you
-        want to raise an exception in case of an error you can set `raise` to
-        `True`.
+        want to raise an exception in case of an error you can set
+        `raise_on_error` to `True`.
 
         See also:
         https://docs.github.com/en/graphql/guides/forming-calls-with-graphql
@@ -80,11 +80,11 @@ class GithubGraphQL:
         Args:
             filename (str): The filename of the query file.
             variables (dict): The variables to be applied to the query.
-            raise_on_error (bool): Raise an exception if there's an error.
+            **kwargs: key-value pairs (e.g. {raise_on_error=True})
         """
         with open(file=filename, mode="r", encoding=self.encoding) as file_handle:
             query = file_handle.read()
-        return self.query(query, variables, raise_on_error)
+        return self.query(query, variables, **kwargs)
 
     def __enter__(self):
         return self
@@ -106,16 +106,16 @@ class GithubGraphQL:
               variables: Dict[str,
                               Union[str,
                                     int]] = None,
-              raise_on_error: bool=False) -> Dict:
+              **kwargs) -> Dict:
         """
         Execute the query with the variables applied. If not requested otherwise
         the plain result is returned. If you want to raise an exception in case
-        of an error you can set `raise` to `True`.
+        of an error you can set `raise_on_error` to `True`.
 
         Args:
             query (str): The GraphQL query.
             variables (dict): The variables to be applied to the query.
-            raise_on_error (bool): Raise an exception if there's an error.
+            **kwargs: key-value pairs (e.g. {raise_on_error=True})
 
         Raises:
             RuntimeError: In case of an error when `raise` is `True`.
@@ -128,6 +128,6 @@ class GithubGraphQL:
             json={"query": query, "variables": variables})
         req.raise_for_status()
         res = dict(req.json())
-        if "errors" in res and (raise_on_error or self.__raise_on_error):
+        if "errors" in res and kwargs.get('raise_on_error', self.__raise_on_error):
             raise RuntimeError(str(fnc.get("errors[0].message", res, default="GraphQL Error")))
         return res

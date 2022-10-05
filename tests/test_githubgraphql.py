@@ -109,7 +109,6 @@ class TestGithubGraphQL(unittest.TestCase):
                 expected = {"data": {"viewer": {"login": self.viewer_login}}}
                 actual = ghapi.query_from_file(filename)
                 self.assertEqual(actual, expected)
-                self.assertIsInstance(actual, dict)
 
     @skip_if_no_token
     def test_undefined_field_madeupfield(self):
@@ -158,6 +157,25 @@ class TestGithubGraphQL(unittest.TestCase):
                 with self.assertRaises(RuntimeError) as ex:
                     ghapi.query_from_file(filename=filename)
                 self.assertAlmostEqual(str(ex.exception), fnc.get("errors[0].message", expected))
+
+    @skip_if_no_token
+    def test_raise_on_error_precedence(self):
+        """
+        Test that we don't raise an error when disable locally but enabled
+        globally.
+        """
+        with ghgql.GithubGraphQL(token=self.api_token, raise_on_error=True) as ghapi:
+            query = " query { viewer { MADEUPFIELD } }"
+            expected = {'errors': [{'extensions': {'code': 'undefinedField',
+                                                    'fieldName': 'MADEUPFIELD',
+                                                    'typeName': 'User'},
+                                    'locations': [{'column': 19, 'line': 1}],
+                                    'message': "Field 'MADEUPFIELD' doesn't exist on type 'User'",
+                                    'path': ['query', 'viewer', 'MADEUPFIELD']}]}
+            # This should not raise an exception because it was explicitly
+            # disabled locally:
+            actual = ghapi.query(query=query, raise_on_error=False)
+            self.assertEqual(actual, expected)
 
     # Test for https://github.com/kwk/ghgql/issues/4
     def test_session_headers_have_token_set(self):
@@ -231,6 +249,12 @@ class TestGithubGraphQL(unittest.TestCase):
             nodes = fnc.get("data.organization.projectV2.items.nodes", result)
             milestone_numbers = fnc.map("content.milestone.number", nodes)
             self.assertEqual(list(milestone_numbers), [1,2,3])
+
+            # Get the milestone using the iterator protocol (as requested in #5)
+            i = 1
+            for node in nodes:
+                self.assertEqual(i, fnc.get("content.milestone.number", node))
+                i+=1
 
 if __name__ == '__main__':
     unittest.main()
