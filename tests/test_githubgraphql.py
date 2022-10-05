@@ -13,14 +13,14 @@ import ghgql
 
 def skip_if_no_token(func):
     """
-    This is a decorator function you can use to skip a test if no GH_API_TOKEN
+    This is a decorator function you can use to skip a test if no GITHUB_TOKEN
     token is specifyied in the environment.
     """
     @functools.wraps(func)
     def wrapper(test_case):
         if test_case.api_token is None:
             test_case.skipTest(
-                "Skipping test case because no GH_API_TOKEN environment variable is set.")
+                "Skipping test case because no GITHUB_TOKEN environment variable is set.")
         func(test_case)
     return wrapper
 
@@ -29,7 +29,7 @@ class TestGithubGraphQL(unittest.TestCase):
     """ Testcases for the GithubGraphQL class. """
 
     def setUp(self) -> None:
-        self.__token = getenv(key="GH_API_TOKEN", default=None)
+        self.__token = getenv(key="GITHUB_TOKEN", default=None)
         self.__viewer_login = getenv(key="GITHUB_LOGIN", default=None)
 
     @property
