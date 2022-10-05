@@ -35,7 +35,7 @@ jobs:
 
       - name: Test with pytest
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GH_API_TOKEN }}
           GITHUB_LOGIN: "github-actions[bot]"
         run: poetry run pytest tests/ --cov=ghgql --cov-report=xml
 
@@ -78,7 +78,7 @@ jobs:
       - name: Use Python Semantic Release to prepare release
         env:
           # This token is created automatically by GH Actions
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.GH_API_TOKEN }}
         run: |
             git config user.name github-actions
             git config user.email github-actions@github.com
