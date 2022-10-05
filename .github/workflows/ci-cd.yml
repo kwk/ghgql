@@ -35,8 +35,8 @@ jobs:
 
       - name: Test with pytest
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          GITHUB_LOGIN: "github-actions[bot]"
+          GITHUB_TOKEN: ${{ secrets.GH_API_TOKEN }}
+          GITHUB_LOGIN: ${{ secrets.GH_API_LOGIN }}
         run: poetry run pytest tests/ --cov=ghgql --cov-report=xml
 
       - name: Use Codecov to track coverage
