@@ -2,6 +2,10 @@
 
 <!--next-version-placeholder-->
 
+## v1.0.1 (2022-10-05)
+### Fix
+* Respect most recent raise_on_error value ([#9](https://github.com/kwk/ghgql/issues/9)) ([`48c8b7d`](https://github.com/kwk/ghgql/commit/48c8b7decb6a96400a26e38b8d7a841e8d29c4b9))
+
 ## v1.0.0 (2022-10-05)
 ### Feature
 * Drop Result and use fnc.get/has/map ([#7](https://github.com/kwk/ghgql/issues/7)) ([`5c3ae86`](https://github.com/kwk/ghgql/commit/5c3ae8659cdc6d2ed48a099928af847e2df3bea0))
