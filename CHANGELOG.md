@@ -2,6 +2,13 @@
 
 <!--next-version-placeholder-->
 
+## v1.0.0 (2022-10-05)
+### Feature
+* Drop Result and use fnc.get/has/map ([#7](https://github.com/kwk/ghgql/issues/7)) ([`5c3ae86`](https://github.com/kwk/ghgql/commit/5c3ae8659cdc6d2ed48a099928af847e2df3bea0))
+
+### Breaking
+* drop Result and use fnc.get/has/map ([#7](https://github.com/kwk/ghgql/issues/7)) ([`5c3ae86`](https://github.com/kwk/ghgql/commit/5c3ae8659cdc6d2ed48a099928af847e2df3bea0))
+
 ## v0.0.12 (2022-10-04)
 ### Fix
 * Always set the Authorization token ([`1bfff0e`](https://github.com/kwk/ghgql/commit/1bfff0e794495a75a42e91dde73ed3c37b335b52))
