@@ -45,7 +45,7 @@ class GithubGraphQL:
         self.__raise_on_error = kwargs.get('raise_on_error', None)
         self.__session = Session()
         self.__session.headers.update({
-            "Authorization": f"Bearer {self.token}",
+            "Authorization": f"Bearer {self.__token}",
             # See #
             # https://github.blog/2021-11-16-graphql-global-id-migration-update/
             'X-Github-Next-Global-ID': '1'

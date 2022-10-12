@@ -14,7 +14,7 @@ jobs:
     # Define job steps
     steps:
       - name: Set up Python
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v3
         with:
           python-version: ${{ matrix.python-version }}
 
@@ -40,7 +40,7 @@ jobs:
         run: poetry run pytest tests/ --cov=ghgql --cov-report=xml
 
       - name: Use Codecov to track coverage
-        uses: codecov/codecov-action@v2
+        uses: codecov/codecov-action@v3
         with:
           files: ./coverage.xml   # coverage report
 
@@ -60,7 +60,7 @@ jobs:
     # Define job steps
     steps:
       - name: Set up Python
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v3
         with:
           python-version: "3.9"
 
