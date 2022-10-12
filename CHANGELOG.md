@@ -2,6 +2,9 @@
 
 <!--next-version-placeholder-->
 
+## v1.0.2 (2022-10-12)
+
+
 ## v1.0.1 (2022-10-05)
 ### Fix
 * Respect most recent raise_on_error value ([#9](https://github.com/kwk/ghgql/issues/9)) ([`48c8b7d`](https://github.com/kwk/ghgql/commit/48c8b7decb6a96400a26e38b8d7a841e8d29c4b9))
