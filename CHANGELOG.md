@@ -2,6 +2,10 @@
 
 <!--next-version-placeholder-->
 
+## v1.0.6 (2022-11-18)
+### Documentation
+* **code of conduct:** Added code of conduct file ([#16](https://github.com/kwk/ghgql/issues/16)) ([`72505df`](https://github.com/kwk/ghgql/commit/72505df8faa8b5aea4e60ad2cb33d368bc77aee8))
+
 ## v1.0.5 (2022-11-18)
 ### Fix
 * **security:** Update pytest from 7.1.3 to 7.2.0 ([#15](https://github.com/kwk/ghgql/issues/15)) ([`327b412`](https://github.com/kwk/ghgql/commit/327b412ae829e562bee75236c430bb88d83e8d16))
