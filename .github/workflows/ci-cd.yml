@@ -27,6 +27,18 @@ jobs:
       - name: Check poetry file pyproject.toml
         run: poetry check
 
+      ### ---------------------------------------------------------------
+      ### Restore the cached python depdendencies based on python version
+      ### ---------------------------------------------------------------
+      - name: "Check for cached dependencies"
+        uses: actions/cache@v3
+        with:
+          path: ~/.cache/pypoetry
+          key: ${{ runner.os }}-poetry-${{ matrix.python-version }}-${{ hashFiles('**/poetry.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-poetry-${{ matrix.python-version }}-
+      ### ---------------------------------------------------------------
+
       - name: Install package
         run: poetry install
 
@@ -71,6 +83,18 @@ jobs:
 
       - name: Install poetry
         uses: snok/install-poetry@v1
+
+      ### ---------------------------------------------------------------
+      ### Restore the cached python depdendencies based on python version
+      ### ---------------------------------------------------------------
+      - name: "Check for cached dependencies"
+        uses: actions/cache@v3
+        with:
+          path: ~/.cache/pypoetry
+          key: ${{ runner.os }}-poetry-3.9-${{ hashFiles('**/poetry.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-poetry-3.9-
+      ### ---------------------------------------------------------------
 
       - name: Install package
         run: poetry install
