@@ -2,6 +2,10 @@
 
 <!--next-version-placeholder-->
 
+## v1.0.4 (2022-11-18)
+### Fix
+* **security:** Update dependencies ([#14](https://github.com/kwk/ghgql/issues/14)) ([`a061b94`](https://github.com/kwk/ghgql/commit/a061b94e6e1be581be04264ca1d7116484bf73b6))
+
 ## v1.0.3 (2022-11-18)
 
 
