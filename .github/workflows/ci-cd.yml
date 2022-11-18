@@ -34,7 +34,7 @@ jobs:
         uses: actions/cache@v3
         with:
           path: ~/.cache/pypoetry
-          key: ${{ runner.os }}-poetry-${{ matrix.python-version }}-${{ hashFiles('**/poetry.lock', '**/pyproject.toml') }}
+          key: ${{ runner.os }}-poetry-${{ matrix.python-version }}-${{ hashFiles('**/poetry.lock') }}
           restore-keys: |
             ${{ runner.os }}-poetry-${{ matrix.python-version }}-
       ### ---------------------------------------------------------------
@@ -91,7 +91,7 @@ jobs:
         uses: actions/cache@v3
         with:
           path: ~/.cache/pypoetry
-          key: ${{ runner.os }}-poetry-3.9-${{ hashFiles('**/poetry.lock', '**/pyproject.toml') }}
+          key: ${{ runner.os }}-poetry-3.9-${{ hashFiles('**/poetry.lock') }}
           restore-keys: |
             ${{ runner.os }}-poetry-3.9-
       ### ---------------------------------------------------------------
