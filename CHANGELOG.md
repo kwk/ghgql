@@ -2,6 +2,10 @@
 
 <!--next-version-placeholder-->
 
+## v1.0.5 (2022-11-18)
+### Fix
+* **security:** Update pytest from 7.1.3 to 7.2.0 ([#15](https://github.com/kwk/ghgql/issues/15)) ([`327b412`](https://github.com/kwk/ghgql/commit/327b412ae829e562bee75236c430bb88d83e8d16))
+
 ## v1.0.4 (2022-11-18)
 ### Fix
 * **security:** Update dependencies ([#14](https://github.com/kwk/ghgql/issues/14)) ([`a061b94`](https://github.com/kwk/ghgql/commit/a061b94e6e1be581be04264ca1d7116484bf73b6))
